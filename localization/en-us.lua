@@ -58,7 +58,7 @@ return {
             j_asc_oil_lamp = {
             name = 'Lucerna',
             text = {
-                "Increase values of all Jokers", 
+                "Increase values of all {C:attention}Jokers", 
                 "by {C:attention}X#1#{} at the end of round.",
                 "{C:inactive}(If possible, Lucerna excluded)"
                 }

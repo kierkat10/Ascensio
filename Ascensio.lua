@@ -30,14 +30,24 @@ SMODS.Atlas {
 }
 
 
---[[SMODS.Atlas {
+SMODS.Atlas {
 	key = "ascension",
 	path = "ascension.png",
-	px = 67,
+	px = 71,
 	py = 95
 }
 
 ----------Defining Consumables------------------
+--Borrowed and modyfied from MoreMarioJoker's powerup card and cryptid's gateway
+local ascensionable = {
+			j_joker = "j_asc_jimbo",
+			j_duo = "j_asc_duo",
+			j_trio = "j_asc_trio",
+			j_selzer = "j_asc_seltzer",
+			j_midas_mask = "j_asc_midas",
+			j_cry_oil_lamp = "j_asc_oil_lamp",
+			j_cry_highfive = "j_asc_high_five"	
+		}
 
 SMODS.Consumable {
 	key = "ascension",
@@ -49,18 +59,54 @@ SMODS.Consumable {
 	hidden = true,
 	config = {},
 	can_use = function(self, card)
-		if #G.jokers.highlighted == 1 and powerupable[G.jokers.highlighted[1].config.center.key] then
+		if #G.jokers.highlighted == 1 and ascensionable[G.jokers.highlighted[1].config.center.key] then
 				return true
 		end
 	end,
 	use = function(self, card, area, copier)
-		SMODS.add_card({key = powerupable[G.jokers.highlighted[1].config.center.key]})
-		G.jokers.highlighted[1]:remove()
+		local ascendent = G.jokers.highlighted[1]
+		if (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 then
+			local deletable_jokers = {}
+			for k, v in pairs(G.jokers.cards) do
+				if not v.ability.eternal then
+					deletable_jokers[#deletable_jokers + 1] = v
+				end
+			end
+			local _first_dissolve = nil
+			G.E_MANAGER:add_event(Event({
+				trigger = "before",
+				delay = 0.75,
+				func = function()
+					for k, v in pairs(deletable_jokers) do
+						if v.config.center.rarity == "cry_exotic" then
+							check_for_unlock({ type = "what_have_you_done" })
+						end
+						v:start_dissolve(nil, _first_dissolve)
+						_first_dissolve = true
+					end
+					return true
+				end,
+			}))
+		end
+		--SMODS.add_card({key = ascensionable[G.jokers.highlighted[1].config.center.key]})
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.4,
+			func = function()
+				play_sound("timpani")
+				local card = create_card("Joker", G.jokers, nil, "cry_exotic", nil, nil, ascensionable[ascendent.config.center.key], "cry_gateway")
+				card:add_to_deck()
+				G.jokers:emplace(card)
+				card:juice_up(0.3, 0.5)
+				return true
+			end,
+		}))
+		delay(0.6)
 	end,
 	in_pool = function()
 		if G and G.jokers and G.jokers.cards then
 			for k, v in ipairs(G.jokers.cards) do
-				if powerupable[v.config.center.key] then
+				if ascensionable[v.config.center.key] then
 					return true 
 				end
 			end
@@ -72,13 +118,16 @@ SMODS.Consumable {
 			"MarioFan597",
 		},
 		art = {
+			"cozyori",
 			"MarioFan597",
 		},
 		code = {
-			"Inspector_B",
+			"MarioFan597",
+			"MathIsFun",
+			"SMG9000"
 		},
 	},
-}]]
+}
 
 
 ----------Defining Jokers------------------
