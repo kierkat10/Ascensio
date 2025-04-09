@@ -46,13 +46,21 @@ return {
                 "give {X:dark_edition,C:white}^#1#{} Mult"
 		    	}
 		    },
-             j_asc_high_five = {
+            j_asc_high_five = {
             name = 'Superioris Manus',
             text = {
                 "Before scoring, if played hand", 
-                " contains a scoring {C:attention}5{},",
+                "contains a scoring {C:attention}5{},",
                 "convert {C:attention}all{} scored cards to {C:attention}5{}s",
                 "They also become {C:dark_edition}Astral"
+                }
+            },
+            j_asc_oil_lamp = {
+            name = 'Lucerna',
+            text = {
+                "Increase values of all Jokers", 
+                "by {C:attention}X#1#{} at the end of round.",
+                "{C:inactive}(If possible, Lucerna excluded)"
                 }
             },
         },
