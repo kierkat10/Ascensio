@@ -47,7 +47,7 @@ return {
 		    	}
 		    },
              j_asc_high_five = {
-            name = 'Handromada',
+            name = 'Superioris Manus',
             text = {
                 "Before scoring, if played hand", 
                 " contains a scoring {C:attention}5{},",

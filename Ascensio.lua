@@ -16,46 +16,19 @@
 local Global_Cap = 1000000
 ----------Defining Atlases------------------
 SMODS.Atlas {
-	key = "balatro",
-	path = "balatro.png",
+	key = "v_atlas_1",
+	path = "vanilla_atlas_1.png",
 	px = 71,
 	py = 95
 }
 
 SMODS.Atlas {
-	key = "duo",
-	path = "duo.png",
+	key = "c_atlas_1",
+	path = "cryptid_atlas_1.png",
 	px = 71,
 	py = 95
 }
 
-SMODS.Atlas {
-	key = "seltzer",
-	path = "seltzer.png",
-	px = 71,
-	py = 95
-}
-
-SMODS.Atlas {
-	key = "midas",
-	path = "midas.png",
-	px = 71,
-	py = 95
-}
-
-SMODS.Atlas {
-	key = "trio",
-	path = "trio.png",
-	px = 71,
-	py = 95
-}
-
-SMODS.Atlas {
-	key = "high_five",
-	path = "high_five.png",
-	px = 71,
-	py = 95
-}
 
 --[[SMODS.Atlas {
 	key = "ascension",
@@ -113,7 +86,7 @@ SMODS.Joker {
 	key = 'jimbo',
 	config = { extra = {mult = 44444} },
 	rarity = "cry_exotic",
-	atlas = 'balatro',
+	atlas = 'v_atlas_1',
 	blueprint_compat = true,
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
@@ -149,7 +122,7 @@ SMODS.Joker {
 	key = 'jimbo',
 	config = { extra = {mult = 44444} },
 	rarity = "cry_exotic",
-	atlas = 'balatro',
+	atlas = 'v_atlas_1',
 	blueprint_compat = true,
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
@@ -184,10 +157,10 @@ SMODS.Joker {
 	key = 'duo',
 	config = { extra = {power = 2} },
 	rarity = "cry_exotic",
-	atlas =  'duo',
+	atlas =  'v_atlas_1',
 	blueprint_compat = true,
-	pos = { x = 0, y = 0 },
-	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 9, y = 0 },
+	soul_pos = { x = 11, y = 0, extra = { x = 10, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power} }
@@ -220,10 +193,10 @@ SMODS.Joker {
 	key = 'trio',
 	config = { extra = {power = 3} },
 	rarity = "cry_exotic",
-	atlas =  'trio',
+	atlas =  'v_atlas_1',
 	blueprint_compat = true,
-	pos = { x = 0, y = 0 },
-	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 0, y = 1 },
+	soul_pos = { x = 2, y = 1, extra = { x = 1, y = 1 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power} }
@@ -256,10 +229,10 @@ SMODS.Joker {
 	key = 'seltzer',
 	config = { extra = {retriggers = 1, played_hands = 10, goal_hands = 10}},
 	rarity = "cry_exotic",
-	atlas =  'seltzer', 
+	atlas =  'v_atlas_1', 
 	blueprint_compat = true,
-	pos = { x = 0, y = 0 },
-	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 3, y = 0 },
+	soul_pos = { x = 5, y = 0, extra = { x = 4, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.retriggers, card and card.ability.extra.played_hands, card and card.ability.extra.goal_hands}}
@@ -297,10 +270,10 @@ SMODS.Joker {
 	key = 'midas',
 	config = { extra = {power = 1.1} },
 	rarity = "cry_exotic",
-	atlas =  'midas',
+	atlas =  'v_atlas_1',
 	blueprint_compat = true,
-	pos = { x = 0, y = 0 },
-	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 6, y = 0 },
+	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
@@ -376,7 +349,7 @@ SMODS.Joker {
 	key = 'high_five',
 	config = { extra = {power = 1.1} },
 	rarity = "cry_exotic",
-	atlas =  'high_five',
+	atlas =  'c_atlas_1',
 	blueprint_compat = false,
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
