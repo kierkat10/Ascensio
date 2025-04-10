@@ -5,7 +5,8 @@ return {
         Edition={},
         Enhanced={},
         Joker={
-        j_asc_jimbo = {
+             ----Vanilla------
+            j_asc_jimbo = {
             name = 'Balatro',
 		    text = {
                 --"{X:dark_edition,C:white}^#1#{} Mult"
@@ -28,6 +29,14 @@ return {
                 "a {C:attention}Three of a Kind{}"
                 }
             },
+            j_asc_family = {
+            name = 'Sum Quattuor',
+            text = {
+                "{X:dark_edition,C:white}^#1#{} Mult if played", 
+                "hand contains",
+                "a {C:attention}Four of a Kind{}"
+                }
+            },
 		    j_asc_seltzer = {
             name = 'Bulla Aquae',
 		    text = {
@@ -46,6 +55,8 @@ return {
                 "give {X:dark_edition,C:white}^#1#{} Mult"
 		    	}
 		    },
+
+            ----Cryptid------
             j_asc_high_five = {
             name = 'Superioris Manus',
             text = {
@@ -61,6 +72,16 @@ return {
                 "Increase values of all {C:attention}Jokers", 
                 "by {C:attention}X#1#{} at the end of round.",
                 "{C:inactive}(If possible, Lucerna excluded)"
+                }
+            },
+
+            ----Cryptid Mortals------
+            j_asc_b_cake = {
+            name = 'Birthday Cake',
+            text = {
+                "{C:chips}+#1#{} Chips", 
+                "{C:chips}-#2#{} Chips per reroll,",
+                "rerolls are free"
                 }
             },
         },
