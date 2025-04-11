@@ -320,7 +320,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'scary',
-	config = { extra = {power = 1.5} },
+	config = { extra = {power = 1.25} },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
