@@ -53,7 +53,8 @@ local ascensionable = {
 			j_selzer = "j_asc_seltzer",
 			j_midas_mask = "j_asc_midas",
 			j_cry_oil_lamp = "j_asc_oil_lamp",
-			j_cry_highfive = "j_asc_high_five"	
+			j_cry_highfive = "j_asc_high_five",
+			j_scary_face = "j_asc_scary"	
 		}
 
 SMODS.Consumable {
@@ -307,6 +308,42 @@ SMODS.Joker {
     cry_credits = {
 			idea = {
 				"hssr96"
+			},
+			art = {
+				"MarioFan597"
+			},
+			code = {
+				"MarioFan597"
+			}
+		},
+}
+
+SMODS.Joker {
+	key = 'scary',
+	config = { extra = {power = 1.5} },
+	rarity = "cry_exotic",
+	atlas =  'v_atlas_1',
+	blueprint_compat = true,
+	pos = { x = 6, y = 1 },
+	soul_pos = { x = 8, y = 1, extra = { x = 7, y = 1 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.power} }
+	end,
+	calculate = function(self, card, context)
+		if context.cardarea == G.play and context.individual then
+			if context.other_card:is_face() then
+				return {
+					message = localize({ type = "variable", key = "a_powchips", vars = { card.ability.extra.power} }),
+					Echip_mod = card.ability.extra.power,
+					colour = G.C.DARK_EDITION,
+				}
+			end
+		end
+	end,
+    cry_credits = {
+			idea = {
+				"TheOfficialfem"
 			},
 			art = {
 				"MarioFan597"

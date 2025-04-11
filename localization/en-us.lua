@@ -56,6 +56,15 @@ return {
 		    	}
 		    },
 
+            j_asc_scary = {
+            name = 'Immanis Facies',
+            text = {
+                "Played face cards", 
+                "give {X:dark_edition,C:white}^#1#{} Chips",
+                "when scored"
+                }
+            },
+
             ----Cryptid------
             j_asc_high_five = {
             name = 'Superioris Manus',
