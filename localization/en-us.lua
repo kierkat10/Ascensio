@@ -43,7 +43,7 @@ return {
                 "Retriggers all cards played {C:attention}#1#{} time(s)", 
                 "Increase number of retriggers",
                 "after {C:attention}#3#{} hands",
-                "{C:inactive} (Hands until upgrade: {C:attention}#2#{C:inactive})"
+                "{C:inactive}(Hands until upgrade: {C:attention}#2#{C:inactive})"
 		    	}
 		    },
 		    j_asc_midas = {
@@ -62,6 +62,15 @@ return {
                 "Played face cards", 
                 "give {X:dark_edition,C:white}^#1#{} Chips",
                 "when scored"
+                }
+            },
+
+            j_asc_abstract = {
+            name = 'Aenigmatum',
+            text = {
+                "This joker gains {X:dark_edition,C:white}^#2#{} Mult", 
+                "for each {C:attention}Joker{} card",
+                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} {C:inactive}Mult)"
                 }
             },
 

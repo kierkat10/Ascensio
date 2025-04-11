@@ -54,7 +54,8 @@ local ascensionable = {
 			j_midas_mask = "j_asc_midas",
 			j_cry_oil_lamp = "j_asc_oil_lamp",
 			j_cry_highfive = "j_asc_high_five",
-			j_scary_face = "j_asc_scary"	
+			j_scary_face = "j_asc_scary",
+			j_abstract = "j_asc_abstract"	
 		}
 
 SMODS.Consumable {
@@ -355,6 +356,47 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+	key = 'abstract',
+	config = { extra = {power = 1, gain = 0.5} },
+	rarity = "cry_exotic",
+	atlas =  'v_atlas_1',
+	blueprint_compat = true,
+	pos = { x = 9, y = 1 },
+	soul_pos = { x = 11, y = 1, extra = { x = 10, y = 1 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain} }
+	end,
+	calculate = function(self, card, context)
+
+		card.ability.extra.power = 1
+		for i = 1, #G.jokers.cards do
+			card.ability.extra.power = card.ability.extra.power + card.ability.extra.gain
+		end
+
+		if context.joker_main then
+			return {
+				message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power} }),
+				Emult_mod = card.ability.extra.power,
+				colour = G.C.DARK_EDITION,
+			}
+		end
+
+	end,
+    cry_credits = {
+			idea = {
+				"TheOfficialfem"
+			},
+			art = {
+				"MarioFan597"
+			},
+			code = {
+				"MarioFan597"
+			}
+		},
+}
+
+SMODS.Joker {
 	key = 'seltzer',
 	config = { extra = {retriggers = 1, played_hands = 10, goal_hands = 10}},
 	rarity = "cry_exotic",
@@ -379,6 +421,14 @@ SMODS.Joker {
 			if card.ability.extra.played_hands <= 0 then
 				card.ability.extra.retriggers = card.ability.extra.retriggers + 1
 				card.ability.extra.played_hands = card.ability.extra.goal_hands
+				card_eval_status_text(
+					card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex"), colour = G.C.GOLD }
+				)
 			end
 		end
 	end,
