@@ -68,7 +68,7 @@ return {
             j_asc_abstract = {
             name = 'Aenigmatum',
             text = {
-                "This joker gains {X:dark_edition,C:white}^#2#{} Mult", 
+                "This Joker gains {X:dark_edition,C:white}^#2#{} Mult", 
                 "for each {C:attention}Joker{} card",
                 "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} {C:inactive}Mult)"
                 }
