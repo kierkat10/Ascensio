@@ -357,7 +357,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'abstract',
-	config = { extra = {power = 1, gain = 0.5} },
+	config = { extra = {power = 1, gain = 0.3} },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
