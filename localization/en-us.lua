@@ -69,8 +69,20 @@ return {
             name = 'Aenigmatum',
             text = {
                 "This Joker gains {X:dark_edition,C:white}^#2#{} Mult", 
-                "for each {C:attention}Joker{} card",
+                "for each {C:attention}Joker{} card,",
                 "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} {C:inactive}Mult)"
+                }
+            },
+
+            j_asc_oops = {
+            name = 'Fortunae Risus',
+            text = {
+                "{C:cry_code}Rig{} all scored cards and a random", 
+                "{C:attention}Joker{} before each hand played,",
+                "fixed {C:attention}1{} in {C:attention}6{} chance to grant",
+                "{C:dark_edition}+#1#{} Joker or consumable slot",
+                --"{C:inactive}(Odds unchangeable with prob manip)",
+                "{C:inactive}(Currently {C:dark_edition}+#2# J{}{C:inactive} and {C:dark_edition}+#3# C{}{C:inactive})"
                 }
             },
 
