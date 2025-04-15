@@ -89,8 +89,7 @@ return {
             j_asc_golden = {
             name = 'Purus Aurum',
             text = {
-                "{X:money,C:white}X#2#{} total money",
-                "at end of round,",
+                "{X:money,C:white}X#2#{} total money at end of round,",
                 "{C:green}#1# in #4#{} chance to increase ",
                 "multipler by {C:money}#3#{} each trigger"
                 }
