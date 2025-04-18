@@ -50,11 +50,20 @@ SMODS.Atlas {
 	py = 95
 }
 
+--[[
+SMODS.Atlas {
+	key = "bull",
+	path = "bull.png",
+	px = 71,
+	py = 95
+}
+
 -----Defining Sounds------
---SMODS.Sound{
-	--key = "mani",
-	--path = "mani.ogg"
---}
+SMODS.Sound{
+	key = "mani",
+	path = "mani.ogg"
+}
+--]]
 
 ----------Defining Consumables------------------
 --Borrowed and modyfied from MoreMarioJoker's powerup card and cryptid's gateway
@@ -70,7 +79,8 @@ local ascensionable = {
 			j_scary_face = "j_asc_scary",
 			j_abstract = "j_asc_abstract",
 			j_oops = "j_asc_oops",
-			j_golden = "j_asc_golden"	
+			j_golden = "j_asc_golden",
+			j_asc_b_cake = "j_cry_crustulum"	
 		}
 
 SMODS.Consumable {
@@ -816,7 +826,7 @@ SMODS.Joker {
 	},
 }
 
---[[SMODS.Joker{
+SMODS.Joker{
 	key = 'b_cake',
 	config = { extra = {chips = 80, reroll = 20} },
 	rarity = 2,
@@ -906,6 +916,5 @@ SMODS.Joker {
 			}
 		},
 }
---]]
 ----------------------------------------------
 ------------MOD CODE END----------------------

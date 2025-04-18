@@ -110,7 +110,7 @@ return {
             text = {
                 "Increase values of all {C:attention}Jokers", 
                 "by {C:attention}X#1#{} at the end of round.",
-                "{C:inactive}(If possible, Lucerna excluded)"
+                "{C:inactive}(If possible, doesn't affect self)"
                 }
             },
 
