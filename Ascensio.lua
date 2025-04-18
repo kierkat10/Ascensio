@@ -832,6 +832,7 @@ SMODS.Joker{
 	rarity = 2,
 	atlas = 'c_atlas_mortal',
 	blueprint_compat = true,
+	pools = { ["Food"] = true },
 	pos = { x = 0, y = 0 },
 	cost = 8,
 	loc_vars = function(self, info_queue, card)
