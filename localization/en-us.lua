@@ -100,7 +100,7 @@ return {
             text = {
                 "Gains {X:dark_edition,C:white}^#2#{} Mult per destroyed face card,",
                 "destroyed face cards are returned to hand",
-                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{}{C:inactive} Mult)"
+                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} Mult"
                 }
             },
 
@@ -120,6 +120,13 @@ return {
                 "Increase values of all {C:attention}Jokers", 
                 "by {C:attention}X#1#{} at the end of round.",
                 "{C:inactive}(If possible, doesn't affect self)"
+                }
+            },
+            j_asc_gardenfork = {
+            name = 'Contra Homo',
+            text = {
+                "{X:money,C:white}X#1#{} total money if played hand,",
+                "contains an {C:attention}Ace{} or {C:attention}7{}"
                 }
             },
 
