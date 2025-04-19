@@ -100,7 +100,7 @@ return {
             text = {
                 "Gains {X:dark_edition,C:white}^#2#{} Mult per destroyed face card,",
                 "destroyed face cards are returned to hand",
-                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} Mult"
+                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{}{C:inactive} Mult)"
                 }
             },
 
