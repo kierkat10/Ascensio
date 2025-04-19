@@ -95,6 +95,15 @@ return {
                 }
             },
 
+            j_asc_thanatos = {
+            name = 'Thanatos',
+            text = {
+                "Gains {X:dark_edition,C:white}^#2#{} Mult per destroyed face card,",
+                "destroyed face cards are returned to hand",
+                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} Mult"
+                }
+            },
+
             ----Cryptid------
             j_asc_high_five = {
             name = 'Superioris Manus',
