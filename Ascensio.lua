@@ -52,8 +52,8 @@ SMODS.Atlas {
 
 --[[
 SMODS.Atlas {
-	key = "thanatos",
-	path = "thanatos.png",
+	key = "gluttony",
+	path = "gluttony.png",
 	px = 71,
 	py = 95
 }
@@ -83,7 +83,8 @@ local ascensionable = {
 			j_golden = "j_asc_golden",
 			j_asc_b_cake = "j_cry_crustulum",
 			j_caino = "j_asc_thanatos",
-			j_cry_gardenfork = "j_asc_gardenfork"	
+			j_cry_gardenfork = "j_asc_gardenfork",
+			j_to_the_moon = "j_asc_to_the_moon"	
 		}
 
 SMODS.Consumable {
@@ -361,7 +362,16 @@ SMODS.Joker {
 		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain} }
 	end,
 	calculate = function(self, card, context)
-
+		local ed = ease_dollars
+		function ease_dollars(mod, instant)
+			if to_big(mod) == to_big(0) then
+				return
+			end
+			if to_big(mod) > to_big(0) then
+				mod = mod * 2
+			end
+			return ed(mod, instant)
+		end
 		card.ability.extra.power = 1
 		--for i = 1, #G.jokers.cards do
 			card.ability.extra.power = card.ability.extra.power + (#G.jokers.cards * card.ability.extra.gain)
@@ -746,6 +756,52 @@ SMODS.Joker {
 			},
 			art = {
 				"MarioFan597"
+			},
+			code = {
+				"MarioFan597"
+			}
+		},
+}
+
+SMODS.Joker {
+	key = 'to_the_moon',
+	config = { extra = {} },
+	rarity = "cry_exotic",
+	atlas = 'v_atlas_1',
+	blueprint_compat = true,
+	pos = { x = 6, y = 2 },
+	soul_pos = { x = 8, y = 2, extra = { x = 7, y = 2 } },
+	cost = 50,
+	--loc_vars = function(self, info_queue, card)
+		--return { vars = { card and card.ability.extra.mult} }
+	--end,
+	
+	--Inspired directly from event 9 of choclate dice
+	add_to_deck = function(self, card, from_debuff)
+		local ed = ease_dollars
+		function ease_dollars(mod, instant)
+			if to_big(mod) == to_big(0) then
+				return
+			end
+			if to_big(mod) > to_big(0) then
+				mod = mod * 3
+			end
+			return ed(mod, instant)
+		end
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		local ed = ease_dollars
+		function ease_dollars(mod, instant)
+			mod = mod / 3
+			return ed(mod, instant)
+		end
+	end,
+    cry_credits = {
+			idea = {
+				"TheOfficialfem"
+			},
+			art = {
+				"Oinite12"
 			},
 			code = {
 				"MarioFan597"

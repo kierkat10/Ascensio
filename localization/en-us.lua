@@ -100,7 +100,15 @@ return {
             text = {
                 "Gains {X:dark_edition,C:white}^#2#{} Mult per destroyed face card,",
                 "destroyed face cards are returned to hand",
-                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} Mult"
+                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{}{C:inactive} Mult)"
+                }
+            },
+
+            j_asc_to_the_moon = {
+            name = 'Pecunia Dominus',
+            text = {
+                "Whenever you would gain {C:money}${},",
+                "gain {X:money,C:white}triple{} that amount",
                 }
             },
 
