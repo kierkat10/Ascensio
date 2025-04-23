@@ -776,7 +776,7 @@ SMODS.Joker {
 		--return { vars = { card and card.ability.extra.mult} }
 	--end,
 	
-	--Inspired directly from event 9 of choclate dice
+	--Modified from code taken directly from event 9 of choclate dice
 	add_to_deck = function(self, card, from_debuff)
 		local ed = ease_dollars
 		function ease_dollars(mod, instant)
@@ -789,13 +789,13 @@ SMODS.Joker {
 			return ed(mod, instant)
 		end
 	end,
-	remove_from_deck = function(self, card, from_debuff)
+	--[[remove_from_deck = function(self, card, from_debuff)
 		local ed = ease_dollars
 		function ease_dollars(mod, instant)
 			mod = mod / 3
 			return ed(mod, instant)
 		end
-	end,
+	end,]]--
     cry_credits = {
 			idea = {
 				"TheOfficialfem"
