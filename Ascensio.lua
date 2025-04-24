@@ -84,7 +84,8 @@ local ascensionable = {
 			j_asc_b_cake = "j_cry_crustulum",
 			j_caino = "j_asc_thanatos",
 			j_cry_gardenfork = "j_asc_gardenfork",
-			j_to_the_moon = "j_asc_to_the_moon"	
+			--j_to_the_moon = "j_asc_to_the_moon",
+			j_stencil = "j_asc_stencil"
 		}
 
 SMODS.Consumable {
@@ -362,16 +363,6 @@ SMODS.Joker {
 		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain} }
 	end,
 	calculate = function(self, card, context)
-		local ed = ease_dollars
-		function ease_dollars(mod, instant)
-			if to_big(mod) == to_big(0) then
-				return
-			end
-			if to_big(mod) > to_big(0) then
-				mod = mod * 2
-			end
-			return ed(mod, instant)
-		end
 		card.ability.extra.power = 1
 		--for i = 1, #G.jokers.cards do
 			card.ability.extra.power = card.ability.extra.power + (#G.jokers.cards * card.ability.extra.gain)
@@ -764,6 +755,74 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+	key = 'stencil',
+	config = { extra = {mult = 0, mult_gain = 3, joker_slots = 0, slot_gain = 1} },
+	rarity = "cry_exotic",
+	atlas =  'v_atlas_1',
+	blueprint_compat = true,
+	pos = { x = 9, y = 2 },
+	soul_pos = { x = 11, y = 2, extra = { x = 10, y = 2 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.mult,  card and card.ability.extra.mult_gain, card and card.ability.extra.joker_slots,  card and card.ability.extra.slot_gain,} }
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.retrigger_joker then
+			card.ability.extra.mult = ((G.jokers.config.card_limit - #G.jokers.cards) * card.ability.extra.mult_gain) + card.ability.extra.mult
+			card_eval_status_text(card, 'extra', nil, nil, nil, {
+					message = localize('k_upgrade_ex'),
+					colour = G.C.MULT,
+				})
+		end
+
+		if context.ending_shop then
+			card.ability.extra.joker_slots = card.ability.extra.joker_slots + card.ability.extra.slot_gain
+			G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slot_gain
+			card_eval_status_text(card, 'extra', nil, nil, nil, {
+					message = localize('k_upgrade_ex'),
+					colour = G.C.DARK_EDITION,
+				})
+		end
+		if context.joker_main then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = {
+						number_format(card.ability.extra.mult),
+					},
+				}),
+				Xmult_mod = lenient_bignum(card.ability.extra.mult),
+				colour = G.C.MULT,
+			}
+		end
+	end,
+	add_to_deck = function(self, card, from_debuff)
+           if G.jokers and not from_debuff then
+           		card.ability.extra.mult = ((G.jokers.config.card_limit - #G.jokers.cards) * card.ability.extra.mult_gain)
+               G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        if G.jokers and not from_debuff then
+            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
+        end
+    end,
+    cry_credits = {
+			idea = {
+				"UTNerd24",
+				"Glitchkat10"
+			},
+			art = {
+				"Tatteredlurker"
+			},
+			code = {
+				"MarioFan597"
+			}
+		},
+}
+
+--[[SMODS.Joker {
 	key = 'to_the_moon',
 	config = { extra = {} },
 	rarity = "cry_exotic",
@@ -772,30 +831,33 @@ SMODS.Joker {
 	pos = { x = 6, y = 2 },
 	soul_pos = { x = 8, y = 2, extra = { x = 7, y = 2 } },
 	cost = 50,
-	--loc_vars = function(self, info_queue, card)
-		--return { vars = { card and card.ability.extra.mult} }
-	--end,
-	
 	--Modified from code taken directly from event 9 of choclate dice
-	add_to_deck = function(self, card, from_debuff)
-		local ed = ease_dollars
-		function ease_dollars(mod, instant)
-			if to_big(mod) == to_big(0) then
-				return
-			end
-			if to_big(mod) > to_big(0) then
-				mod = mod * 3
-			end
-			return ed(mod, instant)
+	add_to_deck= function(self, card, from_debuff)
+		SMODS.Events["ev_asc_tripple_money"]:start()
+	end,
+	calculate = function(self, card, context)
+		if
+			context.end_of_round
+			and not context.individual
+			and not context.repetition
+			and not context.blueprint
+			and not context.retrigger_joker
+			and G.GAME.blind.boss
+		then
+			--todo: check if duplicates of event are already started/finished
+			SMODS.Events["ev_asc_tripple_money"]:finish()
+			SMODS.Events["ev_asc_tripple_money"]:start()
+			return {
+				message = tostring(card.ability.extra.roll),
+				colour = G.C.GREEN,
+			}
 		end
 	end,
-	--[[remove_from_deck = function(self, card, from_debuff)
-		local ed = ease_dollars
-		function ease_dollars(mod, instant)
-			mod = mod / 3
-			return ed(mod, instant)
+	remove_from_deck = function(self, card, from_debuff)
+		if not from_debuff then
+			SMODS.Events["ev_asc_tripple_money"]:finish()
 		end
-	end,]]--
+	end,
     cry_credits = {
 			idea = {
 				"TheOfficialfem"
@@ -807,8 +869,7 @@ SMODS.Joker {
 				"MarioFan597"
 			}
 		},
-}
-
+}]]--
 --------Cryptid Jokers--------
 
 SMODS.Joker {

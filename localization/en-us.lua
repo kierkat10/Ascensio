@@ -109,6 +109,17 @@ return {
             text = {
                 "Whenever you would gain {C:money}${},",
                 "gain {X:money,C:white}triple{} that amount",
+                "All purchases only spend"
+                }
+            },
+
+            j_asc_stencil = {
+            name = 'Inanis',
+            text = {
+                "Gains {X:mult,C:white}X#2#{} Mult for every",
+                "empty Joker Slot at end of round",
+                "Gains {C:dark_edition}+#4#{} Joker Slots at end of shop",
+                "{C:inactive}(Currently {}{X:mult,C:white}X#1#{}{C:inactive} Mult and {}{C:dark_edition}+#3# Joker Slots{}{C:inactive})"
                 }
             },
 
