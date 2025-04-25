@@ -73,6 +73,8 @@ local ascensionable = {
 			j_duo = "j_asc_duo",
 			j_trio = "j_asc_trio",
 			j_family = "j_asc_family",
+			j_order = "j_asc_order",
+			j_tribe = "j_asc_tribe",
 			j_selzer = "j_asc_seltzer",
 			j_midas_mask = "j_asc_midas",
 			j_cry_oil_lamp = "j_asc_oil_lamp",
@@ -310,6 +312,90 @@ SMODS.Joker {
 			},
 			code = {
 				"MarioFan597"
+			}
+		},
+}
+
+SMODS.Joker {
+	key = "order",
+	config = { extra = { e_mult = 3 } },
+	rarity = "cry_exotic",
+	atlas =  "v_atlas_1",
+	pos = { x = 3, y = 3 },
+	soul_pos = { x = 5, y = 3, extra = { x = 4, y = 3 } },
+	cost = 50,
+	blueprint_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			if context.poker_hands ~= nil and next(context.poker_hands["Straight"]) then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_powmult",
+					vars = {
+						number_format(card.ability.extra.e_mult),
+					},
+				}),
+				Emult_mod = card.ability.extra.e_mult,
+				colour = G.C.DARK_EDITION,
+			}
+			end
+		end
+	end,
+	cry_credits = {
+			idea = {
+				"hssr96"
+			},
+			art = {
+				"Oinite12"
+			},
+			code = {
+				"Glitchkat10"
+			}
+		},
+}
+
+SMODS.Joker {
+	key = "tribe",
+	config = { extra = { e_mult = 2 } },
+	rarity = "cry_exotic",
+	atlas =  "v_atlas_1",
+	pos = { x = 6, y = 3 },
+	soul_pos = { x = 8, y = 3, extra = { x = 7, y = 3 } },
+	cost = 50,
+	blueprint_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			if context.poker_hands ~= nil and next(context.poker_hands["Flush"]) then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_powmult",
+					vars = {
+						number_format(card.ability.extra.e_mult),
+					},
+				}),
+				Emult_mod = card.ability.extra.e_mult,
+				colour = G.C.DARK_EDITION,
+			}
+			end
+		end
+	end,
+	cry_credits = {
+			idea = {
+				"hssr96"
+			},
+			art = {
+				"Oinite12"
+			},
+			code = {
+				"Glitchkat10"
 			}
 		},
 }

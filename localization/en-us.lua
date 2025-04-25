@@ -69,57 +69,8 @@ return {
             name = 'Aenigmatum',
             text = {
                 "This Joker gains {X:dark_edition,C:white}^#2#{} Mult", 
-                "for each {C:attention}Joker{} card,",
+                "for each {C:attention}Joker{} card",
                 "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{} {C:inactive}Mult)"
-                }
-            },
-
-            j_asc_oops = {
-            name = 'Fortunae Risus',
-            text = {
-                "{C:cry_code}Rig{} all scored cards and a random", 
-                "{C:attention}Joker{} before each hand played,",
-                "fixed {C:attention}1{} in {C:attention}6{} chance to grant",
-                "{C:dark_edition}+#1#{} Joker or consumable slot",
-                --"{C:inactive}(Odds unchangeable with prob manip)",
-                "{C:inactive}(Currently {C:dark_edition}+#2# J{}{C:inactive} and {C:dark_edition}+#3# C{}{C:inactive})"
-                }
-            },
-
-            j_asc_golden = {
-            name = 'Purus Aurum',
-            text = {
-                "{X:money,C:white}X#2#{} total money at end of round,",
-                "{C:green}#1# in #4#{} chance to increase ",
-                "multipler by {C:money}#3#{} each trigger"
-                }
-            },
-
-            j_asc_thanatos = {
-            name = 'Thanatos',
-            text = {
-                "Gains {X:dark_edition,C:white}^#2#{} Mult per destroyed face card,",
-                "destroyed face cards are returned to hand",
-                "{C:inactive}(Currently {X:dark_edition,C:white}^#1#{}{C:inactive} Mult)"
-                }
-            },
-
-            j_asc_to_the_moon = {
-            name = 'Pecunia Dominus',
-            text = {
-                "Whenever you would gain {C:money}${},",
-                "gain {X:money,C:white}triple{} that amount",
-                "All purchases only spend"
-                }
-            },
-
-            j_asc_stencil = {
-            name = 'Inanis',
-            text = {
-                "Gains {X:mult,C:white}X#2#{} Mult for every",
-                "empty Joker Slot at end of round",
-                "Gains {C:dark_edition}+#4#{} Joker Slots at end of shop",
-                "{C:inactive}(Currently {}{X:mult,C:white}X#1#{}{C:inactive} Mult and {}{C:dark_edition}+#3# Joker Slots{}{C:inactive})"
                 }
             },
 
@@ -138,16 +89,44 @@ return {
             text = {
                 "Increase values of all {C:attention}Jokers", 
                 "by {C:attention}X#1#{} at the end of round.",
-                "{C:inactive}(If possible, doesn't affect self)"
+                "{C:inactive}(If possible, Lucerna excluded)"
                 }
             },
-            j_asc_gardenfork = {
-            name = 'Contra Homo',
-            text = {
-                "{X:money,C:white}X#1#{} total money if played hand,",
-                "contains an {C:attention}Ace{} or {C:attention}7{}"
-                }
-            },
+		j_asc_canvas = {
+		name = 'Pigmentum',
+		text = {
+			"When {C:attention}Blind{} selected, destroy Joker to the",
+			"right and add its {C:attention}rarity value{} to {C:attention}n{}",
+			"Retrigger all Jokers {C:attention}n{} additional times",
+			"{C:inactive,s:0.8}(Common/Uncommon = 0, Rare = 1, Epic = 2, etc){}",
+			"{C:inactive}(Currently {C:attention}#1#{} {C:inactive}retriggers)",
+			}
+		},
+		j_asc_drivers_license = {
+		name = 'Identitatis Discrimine',
+		text = {
+			"{X:mult,C:white}X#1#{} Mult",
+			"{C:attention}Doubles{} for each",
+			"total {C:attention}modification{} in",
+			"remaining deck",
+			}
+		},
+		j_asc_order = {
+		name = 'Sum Constituto',
+		text = {
+			"{X:dark_edition,C:white}^#1#{} Mult if played",
+			"hand contains",
+			"a {C:attention}Straight",
+			}
+		},
+		j_asc_tribe = {
+		name = 'Sum Carnes Unius',
+		text = {
+			"{X:dark_edition,C:white}^#1#{} Mult if played",
+			"hand contains",
+			"a {C:attention}Flush",
+			}
+		},
 
             ----Cryptid Mortals------
             j_asc_b_cake = {
