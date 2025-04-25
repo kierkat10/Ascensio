@@ -373,7 +373,7 @@ SMODS.Joker {
 			if context.poker_hands ~= nil and next(context.poker_hands["Pair"]) then
 				return {
 					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
-					Emult_mod = math.min(card.ability.extra.e_power, Global_Cap),
+					Emult_mod = math.min(card.ability.extra.power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 				}
 			end
