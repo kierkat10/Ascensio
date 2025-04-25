@@ -174,6 +174,16 @@ return {
                 }
             },
 
+            j_asc_credit_card = {
+            name = 'Debitum Accepi',
+            text = {
+                "Go up to {C:red}-$#1#{} in debt",
+                "Gains {X:chips,C:white}X#3#{} Chips for every",
+                "dollar of debt you have when leaving the shop",
+                "{C:inactive}(Currently {X:chips,C:white}X#2#{}{C:inactive} Chips)"
+                }
+            },
+
             ----Cryptid------
             j_asc_high_five = {
             name = 'Superioris Manus',
