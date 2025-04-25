@@ -70,6 +70,10 @@ SMODS.Sound{
 --Borrowed and modyfied from MoreMarioJoker's powerup card and cryptid's gateway
 local ascensionable = {
 			j_joker = "j_asc_jimbo",
+			j_greedy = "j_asc_greedy",
+			j_lusty = "j_asc_lusty",
+			j_wrathful = "j_asc_wrathful",
+			j_gluttonous = "j_asc_gluttonous",
 			j_duo = "j_asc_duo",
 			j_trio = "j_asc_trio",
 			j_family = "j_asc_family",
@@ -87,7 +91,7 @@ local ascensionable = {
 			j_caino = "j_asc_thanatos",
 			j_cry_gardenfork = "j_asc_gardenfork",
 			--j_to_the_moon = "j_asc_to_the_moon",
-			j_stencil = "j_asc_stencil"
+			j_stencil = "j_asc_stencil",
 		}
 
 SMODS.Consumable {
@@ -175,7 +179,7 @@ SMODS.Consumable {
 ----------Defining Jokers------------------
 SMODS.Joker {
 	key = 'jimbo',
-	config = { extra = {mult = 44444} },
+	config = { extra = { mult = 44444 } },
 	rarity = "cry_exotic",
 	atlas = 'v_atlas_1',
 	blueprint_compat = true,
@@ -183,7 +187,7 @@ SMODS.Joker {
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.mult} }
+		return { vars = { card and card.ability.extra.mult } }
 	end,
 	calculate = function(self, card, context)
 	if context.joker_main then
@@ -209,8 +213,152 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+	key = "greedy",
+	config = { extra = { e_mult = 1.2 } },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+	pos = { x = 0, y = 4 },
+	soul_pos = { x = 2, y = 4, extra = { x = 1, y = 4 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual then
+			if context.cardarea == G.play and context.other_card:is_suit('Diamonds') then
+				return {
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.e_mult } }),
+					Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
+					colour = G.C.DARK_EDITION,
+				}
+			end
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Lexi"
+		},
+		art = {
+			"MarioFan597"
+		},
+		code = {
+			"Glitchkat10"
+		}
+	},
+}
+
+SMODS.Joker {
+	key = "lusty",
+	config = { extra = { e_mult = 1.2 } },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+	pos = { x = 3, y = 4 },
+	soul_pos = { x = 5, y = 4, extra = { x = 4, y = 4 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual then
+			if context.cardarea == G.play and context.other_card:is_suit('Hearts') then
+				return {
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.e_mult } }),
+					Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
+					colour = G.C.DARK_EDITION,
+				}
+			end
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Lexi"
+		},
+		art = {
+			"MarioFan597"
+		},
+		code = {
+			"Glitchkat10"
+		}
+	},
+}
+
+SMODS.Joker {
+	key = "wrathful",
+	config = { extra = { e_mult = 1.2 } },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+	pos = { x = 6, y = 4 },
+	soul_pos = { x = 8, y = 4, extra = { x = 7, y = 4 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual then
+			if context.cardarea == G.play and context.other_card:is_suit('Spades') then
+				return {
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.e_mult } }),
+					Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
+					colour = G.C.DARK_EDITION,
+				}
+			end
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Lexi"
+		},
+		art = {
+			"MarioFan597"
+		},
+		code = {
+			"Glitchkat10"
+		}
+	},
+}
+
+SMODS.Joker {
+	key = "gluttonous",
+	config = { extra = { e_mult = 1.2 } },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+	pos = { x = 9, y = 4 },
+	soul_pos = { x = 11, y = 4, extra = { x = 10, y = 4 } },
+	cost = 50,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.e_mult } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual then
+			if context.cardarea == G.play and context.other_card:is_suit('Clubs') then
+				return {
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.e_mult } }),
+					Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
+					colour = G.C.DARK_EDITION,
+				}
+			end
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Lexi"
+		},
+		art = {
+			"MarioFan597"
+		},
+		code = {
+			"Glitchkat10"
+		}
+	},
+}
+
+SMODS.Joker {
 	key = 'duo',
-	config = { extra = {power = 2} },
+	config = { extra = { power = 2 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -218,14 +366,14 @@ SMODS.Joker {
 	soul_pos = { x = 11, y = 0, extra = { x = 10, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.power} }
+		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			if context.poker_hands ~= nil and next(context.poker_hands["Pair"]) then
 				return {
-					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power} }),
-					Emult_mod = card.ability.extra.power,
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
+					Emult_mod = math.min(card.ability.extra.e_power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 				}
 			end
@@ -246,7 +394,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'trio',
-	config = { extra = {power = 3} },
+	config = { extra = { power = 3 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -254,14 +402,14 @@ SMODS.Joker {
 	soul_pos = { x = 2, y = 1, extra = { x = 1, y = 1 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.power} }
+		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			if context.poker_hands ~= nil and next(context.poker_hands["Three of a Kind"]) then
 				return {
-					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power} }),
-					Emult_mod = card.ability.extra.power,
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
+					Emult_mod = math.min(card.ability.extra.power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 				}
 			end
@@ -282,7 +430,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'family',
-	config = { extra = {power = 4} },
+	config = { extra = { power = 4 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -290,14 +438,14 @@ SMODS.Joker {
 	soul_pos = { x = 5, y = 1, extra = { x = 4, y = 1 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.power} }
+		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			if context.poker_hands ~= nil and next(context.poker_hands["Four of a Kind"]) then
 				return {
-					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power} }),
-					Emult_mod = card.ability.extra.power,
+					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
+					Emult_mod = math.min(card.ability.extra.power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 				}
 			end
@@ -339,7 +487,7 @@ SMODS.Joker {
 						number_format(card.ability.extra.e_mult),
 					},
 				}),
-				Emult_mod = card.ability.extra.e_mult,
+				Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
 				colour = G.C.DARK_EDITION,
 			}
 			end
@@ -381,7 +529,7 @@ SMODS.Joker {
 						number_format(card.ability.extra.e_mult),
 					},
 				}),
-				Emult_mod = card.ability.extra.e_mult,
+				Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
 				colour = G.C.DARK_EDITION,
 			}
 			end
@@ -402,7 +550,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'scary',
-	config = { extra = {power = 1.25} },
+	config = { extra = { power = 1.25 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -410,14 +558,14 @@ SMODS.Joker {
 	soul_pos = { x = 8, y = 1, extra = { x = 7, y = 1 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.power} }
+		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if context.cardarea == G.play and context.individual then
 			if context.other_card:is_face() then
 				return {
-					message = localize({ type = "variable", key = "a_powchips", vars = { card.ability.extra.power} }),
-					Echip_mod = card.ability.extra.power,
+					message = localize({ type = "variable", key = "a_powchips", vars = { card.ability.extra.power } }),
+					Echip_mod = math.min(card.ability.extra.power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 				}
 			end
@@ -438,7 +586,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'abstract',
-	config = { extra = {power = 1, gain = 0.3} },
+	config = { extra = { power = 1, gain = 0.3 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -446,7 +594,7 @@ SMODS.Joker {
 	soul_pos = { x = 11, y = 1, extra = { x = 10, y = 1 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain} }
+		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain } }
 	end,
 	calculate = function(self, card, context)
 		card.ability.extra.power = 1
@@ -456,8 +604,8 @@ SMODS.Joker {
 
 		if context.joker_main then
 			return {
-				message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power} }),
-				Emult_mod = card.ability.extra.power,
+				message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
+				Emult_mod = math.min(card.ability.extra.power, Global_Cap),
 				colour = G.C.DARK_EDITION,
 			}
 		end
@@ -478,7 +626,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'seltzer',
-	config = { extra = {retriggers = 1, played_hands = 10, goal_hands = 10}},
+	config = { extra = { retriggers = 1, played_hands = 10, goal_hands = 10 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1', 
 	blueprint_compat = true,
@@ -486,7 +634,7 @@ SMODS.Joker {
 	soul_pos = { x = 5, y = 0, extra = { x = 4, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.retriggers, card and card.ability.extra.played_hands, card and card.ability.extra.goal_hands}}
+		return { vars = { card and card.ability.extra.retriggers, card and card.ability.extra.played_hands, card and card.ability.extra.goal_hands } }
 	end,
 	calculate = function(self, card, context)
 		if context.cardarea == G.play and context.repetition and not context.repetition_only then
@@ -527,7 +675,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'midas',
-	config = { extra = {power = 1.1} },
+	config = { extra = { power = 1.1 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -580,7 +728,7 @@ SMODS.Joker {
 				}
 			else
 				return {
-					e_mult = card.ability.extra.power,
+					e_mult = math.min(card.ability.extra.power, Global_Cap),
 					colour = G.C.DARK_EDITION,
 					card = card,
 				}
@@ -842,7 +990,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'stencil',
-	config = { extra = {mult = 0, mult_gain = 3, joker_slots = 0, slot_gain = 1} },
+	config = { extra = { mult = 0, mult_gain = 1, joker_slots = 0, slot_gain = 1 } },
 	rarity = "cry_exotic",
 	atlas =  'v_atlas_1',
 	blueprint_compat = true,
@@ -850,7 +998,7 @@ SMODS.Joker {
 	soul_pos = { x = 11, y = 2, extra = { x = 10, y = 2 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.mult,  card and card.ability.extra.mult_gain, card and card.ability.extra.joker_slots,  card and card.ability.extra.slot_gain,} }
+		return { vars = { card and card.ability.extra.mult,  card and card.ability.extra.mult_gain, card and card.ability.extra.joker_slots, card and card.ability.extra.slot_gain } }
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.retrigger_joker then
@@ -910,7 +1058,7 @@ SMODS.Joker {
 
 --[[SMODS.Joker {
 	key = 'to_the_moon',
-	config = { extra = {} },
+	config = { extra = {  } },
 	rarity = "cry_exotic",
 	atlas = 'v_atlas_1',
 	blueprint_compat = true,
@@ -960,7 +1108,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'high_five',
-	config = { extra = {power = 1.1} },
+	config = { extra = {power = 1.1 } },
 	rarity = "cry_exotic",
 	atlas =  'c_atlas_1',
 	blueprint_compat = false,
@@ -969,7 +1117,7 @@ SMODS.Joker {
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_astral
-		return { vars = { card and card.ability.extra.power} }
+		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if
@@ -1015,7 +1163,7 @@ SMODS.Joker {
 					}))
 				end
 				if converted then
-				return {message = 'I Wish', colour = G.C.PURPLE,}
+				return { message = 'I Wish', colour = G.C.PURPLE }
 				end
 			end
 		end
@@ -1094,7 +1242,7 @@ SMODS.Joker {
 
 SMODS.Joker {
 	key = 'gardenfork',
-	config = { extra = {money = 1.7} },
+	config = { extra = { money = 1.7 } },
 	rarity = "cry_exotic",
 	atlas = 'c_atlas_1',
 	blueprint_compat = true,
@@ -1102,7 +1250,7 @@ SMODS.Joker {
 	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
 	cost = 50,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card and card.ability.extra.money} }
+		return { vars = { card and card.ability.extra.money } }
 	end,
 	calculate = function(self, card, context)
 		if context.cardarea == G.jokers and context.before and context.full_hand then
@@ -1139,7 +1287,7 @@ SMODS.Joker {
 
 SMODS.Joker{
 	key = 'b_cake',
-	config = { extra = {chips = 80, reroll = 20} },
+	config = { extra = { chips = 80, reroll = 20 } },
 	rarity = 2,
 	atlas = 'c_atlas_mortal',
 	blueprint_compat = true,
@@ -1147,7 +1295,7 @@ SMODS.Joker{
 	pos = { x = 0, y = 0 },
 	cost = 8,
 	loc_vars = function(self, info_queue, card)
-	return { vars = { card and card.ability.extra.chips, card and card.ability.extra.reroll} }
+	return { vars = { card and card.ability.extra.chips, card and card.ability.extra.reroll } }
 	end,
 	calculate = function(self, card, context)
 	--Taken from crustulum
