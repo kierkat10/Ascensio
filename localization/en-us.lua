@@ -179,7 +179,8 @@ return {
             text = {
                 "Go up to {C:red}-$#1#{} in debt",
                 "Gains {X:chips,C:white}X#3#{} Chips for every",
-                "dollar of debt you have when leaving the shop",
+                "dollar of debt you have",
+                "when leaving the shop",
                 "{C:inactive}(Currently {X:chips,C:white}X#2#{}{C:inactive} Chips)"
                 }
             },
