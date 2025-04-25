@@ -488,7 +488,7 @@ SMODS.Joker {
 						number_format(card.ability.extra.e_mult),
 					},
 				}),
-				Emult_mod = math.min(card.ability.extra.e_mult, to_big),
+				Emult_mod = math.min(card.ability.extra.e_mult, Global_Cap),
 				colour = G.C.DARK_EDITION,
 			}
 			end
