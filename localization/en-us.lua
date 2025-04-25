@@ -13,6 +13,41 @@ return {
                 "{C:mult}+#1#{} Mult"
 		    	}
 		    },
+			j_asc_greedy = {
+				name = "Avarus",
+				text = {
+					"Played cards with {C:diamond}Diamond",
+					"suit give {X:dark_edition,C:white}^#1#{} Mult",
+					"when scored",
+				}
+			},
+
+			j_asc_lusty = {
+				name = "Libido",
+				text = {
+					"Played cards with {C:heart}Heart",
+					"suit give {X:dark_edition,C:white}^#1#{} Mult",
+					"when scored",
+				}
+			},
+
+			j_asc_wrathful = {
+				name = "Iram",
+				text = {
+					"Played cards with {C:spade}Spade",
+					"suit give {X:dark_edition,C:white}^#1#{} Mult",
+					"when scored",
+				}
+			},
+
+			j_asc_gluttonous = {
+				name = "Gula",
+				text = {
+					"Played cards with {C:club}Club",
+					"suit give {X:dark_edition,C:white}^#1#{} Mult",
+					"when scored",
+				}
+			},
 		    j_asc_duo = {
             name = 'Sum Duo',
 		    text = {
@@ -135,7 +170,7 @@ return {
                 "Gains {X:mult,C:white}X#2#{} Mult for every",
                 "empty Joker Slot at end of round",
                 "Gains {C:dark_edition}+#4#{} Joker Slots at end of shop",
-                "{C:inactive}(Currently {}{X:mult,C:white}X#1#{}{C:inactive} Mult and {}{C:dark_edition}+#3# Joker Slots{}{C:inactive})"
+                "{C:inactive}(Currently {}{X:mult,C:white}X#1#{}{C:inactive} Mult and {}{C:dark_edition}+#3#{C:inactive} Joker Slots)"
                 }
             },
 
