@@ -78,6 +78,7 @@ local ascensionable = {
 			j_credit_card = "j_asc_credit_card",
 			j_scary_face = "j_asc_scary",
 			j_abstract = "j_asc_abstract",
+			j_dna = "j_asc_dna",
 			j_midas_mask = "j_asc_midas",
 			j_golden = "j_asc_golden",
 			j_selzer = "j_asc_seltzer",
@@ -177,7 +178,6 @@ SMODS.Consumable {
 	},
 }
 
-
 ----------Defining Jokers----------
 SMODS.Joker {
 	key = "jimbo",
@@ -223,6 +223,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 4 },
 	soul_pos = { x = 2, y = 4, extra = { x = 1, y = 4 } },
 	cost = 50,
+	order = 2,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
 	end,
@@ -259,6 +260,7 @@ SMODS.Joker {
 	pos = { x = 3, y = 4 },
 	soul_pos = { x = 5, y = 4, extra = { x = 4, y = 4 } },
 	cost = 50,
+	order = 3,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
 	end,
@@ -295,6 +297,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 4 },
 	soul_pos = { x = 8, y = 4, extra = { x = 7, y = 4 } },
 	cost = 50,
+	order = 4,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
 	end,
@@ -331,6 +334,7 @@ SMODS.Joker {
 	pos = { x = 9, y = 4 },
 	soul_pos = { x = 11, y = 4, extra = { x = 10, y = 4 } },
 	cost = 50,
+	order = 5,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
 	end,
@@ -367,6 +371,7 @@ SMODS.Joker {
 	pos = { x = 9, y = 2 },
 	soul_pos = { x = 11, y = 2, extra = { x = 10, y = 2 } },
 	cost = 50,
+	order = 17,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.mult,  card and card.ability.extra.mult_gain, card and card.ability.extra.joker_slots, card and card.ability.extra.slot_gain } }
 	end,
@@ -435,6 +440,7 @@ SMODS.Joker {
 	pos = { x = 3, y = 3 },
 	soul_pos = { x = 5, y = 3, extra = { x = 4, y = 3 } },
 	cost = 50,
+	order = 20,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.debt, card and card.ability.extra.chips, card and card.ability.extra.gain } }
 	end,
@@ -487,6 +493,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 1 },
 	soul_pos = { x = 8, y = 1, extra = { x = 7, y = 1 } },
 	cost = 50,
+	order = 33,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power } }
 	end,
@@ -523,6 +530,7 @@ SMODS.Joker {
 	pos = { x = 9, y = 1 },
 	soul_pos = { x = 11, y = 1, extra = { x = 10, y = 1 } },
 	cost = 50,
+	order = 34,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power,  card and card.ability.extra.gain } }
 	end,
@@ -555,6 +563,78 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+	key = "dna",
+	config = { extra = { copies = 10} },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+	pos = { x = 0, y = 3 },
+	soul_pos = { x = 2, y = 3, extra = { x = 1, y = 3 } },
+	cost = 50,
+	order = 51,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.copies} }
+	end,
+	calculate = function(self, card, context)
+    if context.joker_main and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.75,
+			func = function()
+			for k, v in pairs(G.hand.cards) do
+				if v ~= card.ability.chosen_card then
+					v:start_dissolve(nil, _first_dissolve)
+					_first_dissolve = true
+				end
+			end
+			return true
+		end,
+		}))
+        local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
+        for i = 1, card.ability.extra.copies do
+        	--G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+        	G.E_MANAGER:add_event(Event({
+                    trigger = "before",
+                    delay = 0.4,
+                    func = function()
+                        card:juice_up(0.3, 0.4)
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        local _card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
+                        _card:start_materialize()
+                        _card:add_to_deck()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        table.insert(G.playing_cards, _card)
+                        G.hand:emplace(_card)
+                        playing_card_joker_effects({ _card })
+                        return true
+                    end,
+                }))
+        	end
+        G.hand:emplace(_card)
+        return {
+            message = localize('k_copied_ex'),
+            colour = G.C.CHIPS,
+            card = self,
+           	playing_cards_created = {true}
+        	}
+    	end 
+	end,
+	cry_credits = {
+			idea = {
+				"Lexi",
+				"Tatteredlurker"
+			},
+			art = {
+				"Tatteredlurker"
+			},
+			code = {
+				"Math",
+				"Mario"
+			}
+	},
+}
+
+SMODS.Joker {
 	key = "midas",
 	config = { extra = { power = 1.1 } },
 	rarity = "cry_exotic",
@@ -563,6 +643,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 0 },
 	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
 	cost = 50,
+	order = 76,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_gold
@@ -638,6 +719,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 2 },
 	soul_pos = { x = 2, y = 2, extra = { x = 1, y = 2 } },
 	cost = 50,
+	order = 90,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { cry_prob(card.ability.cry_prob, card.ability.extra.odds, card.ability.cry_rigged), card and card.ability.extra.gold, card and card.ability.extra.gain, card and card.ability.extra.odds} }
 	end,
@@ -681,6 +763,7 @@ SMODS.Joker {
 	pos = { x = 3, y = 0 },
 	soul_pos = { x = 5, y = 0, extra = { x = 4, y = 0 } },
 	cost = 50,
+	order = 102,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.retriggers, card and card.ability.extra.played_hands, card and card.ability.extra.goal_hands } }
 	end,
@@ -730,6 +813,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 1, y = 0, extra = { x = 0, y = 1 } },
 	cost = 50,
+	order = 126,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "cry_rigged", set = "Other", vars = {} }
 		return { vars = { card and card.ability.extra.slot_gain, card and card.ability.extra.joker_slots, card and card.ability.extra.consumable_slots } }
@@ -868,16 +952,46 @@ SMODS.Joker {
 	pos = { x = 9, y = 0 },
 	soul_pos = { x = 11, y = 0, extra = { x = 10, y = 0 } },
 	cost = 50,
+	order = 131,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if context.poker_hands ~= nil and next(context.poker_hands["Pair"]) then
-				return {
-					message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
-					Emult_mod = math.min(card.ability.extra.power, Global_Cap),
-					colour = G.C.DARK_EDITION,
+			--[[if context.scoring_name == "Pair" and context.cardarea == G.jokers and not context.blueprint_card and not context.retrigger_joker then
+			--if context.cardarea == G.jokers and context.before and not context.blueprint_card and not context.retrigger_joker then
+				--if get_poker_hand_info(G.hand.highlighted) == "Pair" then
+					card_list = {}
+            		for i = 1, #context.scoring_hand do
+           				table.insert(card_list, context.scoring_hand[i])
+           			end
+            		local rank = average_rank(card_list) or 0
+            		-----------
+            		local _card = G.hand.cards[i]
+					converted = true
+            		for i = 1, #G.hand.cards do
+					local _card = G.hand.cards[i]
+						if _card:get_id() ~= rank and not SMODS.has_no_rank(_card) then
+							G.E_MANAGER:add_event(Event({
+								func = function()
+									assert(SMODS.change_base(_card, _, rank))
+									_card:juice_up()
+									return true
+								end,
+								}))
+						end
+					end
+				if converted then
+				return { message = rank, colour = G.C.PURPLE }
+				end
+		end
+		]]
+			
+		if context.poker_hands ~= nil and next(context.poker_hands["Pair"]) then
+			return {
+				message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.power } }),
+				Emult_mod = math.min(card.ability.extra.power, Global_Cap),
+				colour = G.C.DARK_EDITION,
 				}
 			end
 		end
@@ -904,6 +1018,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 1 },
 	soul_pos = { x = 2, y = 1, extra = { x = 1, y = 1 } },
 	cost = 50,
+	order = 132,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power } }
 	end,
@@ -940,6 +1055,7 @@ SMODS.Joker {
 	pos = { x = 3, y = 1 },
 	soul_pos = { x = 5, y = 1, extra = { x = 4, y = 1 } },
 	cost = 50,
+	order = 133,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power } }
 	end,
@@ -975,6 +1091,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 3 },
 	soul_pos = { x = 8, y = 3, extra = { x = 7, y = 3 } },
 	cost = 50,
+	order = 134,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
@@ -1017,6 +1134,7 @@ SMODS.Joker {
 	pos = { x = 9, y = 3 },
 	soul_pos = { x = 11, y = 3, extra = { x = 10, y = 3 } },
 	cost = 50,
+	order = 135,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.e_mult } }
@@ -1057,6 +1175,7 @@ SMODS.Joker{
 	soul_pos = { x = 2, y = 5, extra = { x = 1, y = 5 } },
 	rarity = "cry_exotic",
 	cost = 50,
+	order = 141,
 	config = { extra = { base_mult = 1 } },
 	blueprint_compat = false,
 	atlas = "v_atlas_1",
@@ -1132,6 +1251,7 @@ SMODS.Joker {
 	pos = { x = 3, y = 2 },
 	soul_pos = { x = 5, y = 2, extra = { x = 4, y = 2 } },
 	cost = 50,
+	order = 146,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.power, card and card.ability.extra.gain } }
 	end,
@@ -1245,6 +1365,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 0 },
 	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
 	cost = 50,
+	order = 216,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card and card.ability.extra.money } }
 	end,
@@ -1286,6 +1407,7 @@ SMODS.Joker {
 	config = { extra = { increase = 1.2 } },
 	rarity = "cry_exotic",
 	cost = 50,
+	order = 277,
 	atlas = "c_atlas_1",
 	loc_vars = function(self, info_queue, card)
 		card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ""
@@ -1347,6 +1469,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
 	cost = 50,
+	order = 287,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_astral
 		return { vars = { card and card.ability.extra.power } }
@@ -1424,6 +1547,7 @@ SMODS.Joker{
 	pools = { ["Food"] = true },
 	pos = { x = 0, y = 0 },
 	cost = 8,
+	order = 508,
 	loc_vars = function(self, info_queue, card)
 	return { vars = { card and card.ability.extra.chips, card and card.ability.extra.reroll } }
 	end,

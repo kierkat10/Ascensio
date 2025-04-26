@@ -88,6 +88,16 @@ return {
 				}
 			},
 
+            j_asc_dna = {
+                name = "Sui Replicatio",
+                text = {
+                    "If {C:attention}first hand{} of round has only {C:attention}1{} card,", 
+                    "add {C:attention}#1#{} permanent copies to deck,",
+                    "draw them to {C:attention}hand{},", 
+                    "and destroy remaining cards in {C:attention}hand{}"
+                }
+            },
+
 			j_asc_midas = {
 				name = "Rex Midas",
 				text = {
