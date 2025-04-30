@@ -1,13 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Ascensio
---- MOD_ID: Ascensio
---- MOD_AUTHOR: [MarioFan597]
---- MOD_DESCRIPTION: Exoticfy your Jokers!
---- PREFIX: asc
---- BADGE_COLOUR: 708b91
---- DEPENDENCIES:Cryptid>=0.5.3<=0.5.5
---- VERSION: 0.0.1
-
 ----------------------------------------------
 ------------MOD CODE -------------------------
 ---
@@ -70,10 +60,10 @@ SMODS.Sound{
 --Borrowed and modyfied from MoreMarioJoker's powerup card and cryptid's gateway
 local ascensionable = {
 			j_joker = "j_asc_jimbo",
-			j_greedy = "j_asc_greedy",
-			j_lusty = "j_asc_lusty",
-			j_wrathful = "j_asc_wrathful",
-			j_gluttonous = "j_asc_gluttonous",
+			j_greedy_joker = "j_asc_greedy",
+			j_lusty_joker = "j_asc_lusty",
+			j_wrathful_joker = "j_asc_wrathful",
+			j_gluttonous_joker = "j_asc_gluttonous",
 			j_stencil = "j_asc_stencil",
 			j_credit_card = "j_asc_credit_card",
 			j_scary_face = "j_asc_scary",
@@ -116,11 +106,20 @@ SMODS.Consumable {
 		ascendent:set_eternal(nil)
 		if (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 then
 			local deletable_jokers = {}
-			for k, v in pairs(G.jokers.cards) do
-				if not v.ability.eternal then
-					deletable_jokers[#deletable_jokers + 1] = v
+			if asc_config["Insanity Mode!!!"] or false then
+				for k, v in pairs(G.jokers.cards) do
+					if v == G.jokers.highlighted[1] then
+						deletable_jokers[#deletable_jokers + 1] = v
+					end
+				end
+			else
+				for k, v in pairs(G.jokers.cards) do
+					if not v.ability.eternal then
+						deletable_jokers[#deletable_jokers + 1] = v
+					end
 				end
 			end
+
 			local _first_dissolve = nil
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
@@ -1630,5 +1629,43 @@ SMODS.Joker{
 			}
 	},
 }
+
+------Mod Menu Tabs (Taken directly and modified from more mario jokers)
+
+local current_mod = SMODS.current_mod
+local mod_path = SMODS.current_mod.path
+asc_config = SMODS.current_mod.config
+if asc_config["Insanity Mode!!!"] == nil then
+  asc_config["Insanity Mode!!!"] = false
+end
+
+local ascensioTabs = function() return {
+	{
+		label = localize("asc_config"),
+		chosen = true,
+		tab_definition_function = function()
+			asc_nodes = {}
+			settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
+      settings.nodes[#settings.nodes + 1] =
+        create_toggle({ label = localize("asc_config_insanity_mode"), ref_table = asc_config, ref_value = "Insanity Mode!!!" })
+			config = { n = G.UIT.R, config = { align = "tm", padding = 0 }, nodes = { settings } }
+			asc_nodes[#asc_nodes + 1] = config
+			return {
+				n = G.UIT.ROOT,
+				config = {
+					emboss = 0.05,
+					minh = 6,
+					r = 0.1,
+					minw = 10,
+					align = "cm",
+					padding = 0.2,
+					colour = G.C.BLACK,
+				},
+				nodes = asc_nodes,
+			}
+		end,
+	},
+} end
+SMODS.current_mod.extra_tabs = ascensioTabs
 ----------------------------------------------
 ------------MOD CODE END----------------------

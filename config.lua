@@ -1,0 +1,4 @@
+{
+ 	["Insanity Mode!!!"] = false
+}
+ 

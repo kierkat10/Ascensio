@@ -268,6 +268,10 @@ return {
 		Tag = {},
 		Tarot = {},
 		Voucher = {},
-		misc = {},
-	}
+	},
+    misc = {
+            dictionary = {
+                asc_config = "Config",
+                asc_config_insanity_mode = "Insanity Mode!!!"
+        }},
 }

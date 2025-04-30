@@ -14,3 +14,30 @@ payload ='''	if next(find_joker("j_asc_b_cake")) or G.GAME.current_round.free_re
 		return
 	end'''
 match_indent = true
+
+#Adds Insanity Mode!!! functionality to cryptid's gateway
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS Cryptid "items/exotic.lua"]'''
+pattern = '''return #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j")
+				< to_number(G.jokers.config.card_limit)'''
+position = "at"
+payload ='''if not asc_config["Insanity Mode!!!"] or false then
+				return #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j")
+					< to_number(G.jokers.config.card_limit)
+			else
+				return #G.jokers.cards
+					< to_number(G.jokers.config.card_limit)
+			end
+		'''
+
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS Cryptid "items/exotic.lua"]'''
+pattern = '''if not v.ability.eternal then'''
+position = "at"
+payload ='''if not v.ability.eternal and not asc_config["Insanity Mode!!!"] or false then'''
+match_indent = true
