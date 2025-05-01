@@ -70,6 +70,13 @@ return {
 				}
 			},
 
+            j_asc_misprint = {
+                name = "Defectus",
+                text = {
+                    "",
+                }
+            },
+
 			j_asc_scary = {
 				name = "Immanis Facies",
 				text = {
