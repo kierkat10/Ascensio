@@ -1,4 +1,3 @@
-{
+return {
  	["Insanity Mode!!!"] = false
 }
- 
