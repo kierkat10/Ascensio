@@ -63,7 +63,7 @@ SMODS.Sound{
 }
 --]]
 
-----------Defining Consumables------------------
+----------Defining Consumables----------
 --Borrowed and modyfied from MoreMarioJoker's powerup card and cryptid's gateway
 local ascensionable = {
 			j_joker = "j_asc_jimbo",
