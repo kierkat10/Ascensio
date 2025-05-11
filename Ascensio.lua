@@ -70,7 +70,7 @@ local ascensionable = {
 			j_greedy_joker = "j_asc_greedy",
 			j_lusty_joker = "j_asc_lusty",
 			j_wrathful_joker = "j_asc_wrathful",
-			j_gluttenous_joker = "j_asc_gluttonous",
+			j_gluttonous_joker = "j_asc_gluttonous",
 			j_stencil = "j_asc_stencil",
 			j_credit_card = "j_asc_credit_card",
 			j_misprint = "j_asc_misprint",
@@ -79,6 +79,7 @@ local ascensionable = {
 			j_dna = "j_asc_dna",
 			j_midas_mask = "j_asc_midas",
 			j_golden = "j_asc_golden",
+			j_bull = "j_asc_bull",
 			j_selzer = "j_asc_seltzer",
 			j_oops = "j_asc_oops",
 			j_duo = "j_asc_duo",
@@ -93,6 +94,7 @@ local ascensionable = {
 			j_cry_oil_lamp = "j_asc_oil_lamp",
 			j_cry_highfive = "j_asc_high_five",
 			j_asc_b_cake = "j_cry_crustulum",
+			j_asc_gemino = "j_cry_gemino"
 		}
 
 SMODS.Consumable {
@@ -409,7 +411,7 @@ SMODS.Joker {
 						number_format(card.ability.extra.mult),
 					},
 				}),
-				Xmult_mod = lenient_bignum(card.ability.extra.mult),
+				Xmult_mod = to_big(card.ability.extra.mult),
 				colour = G.C.MULT,
 			}
 		end
@@ -568,7 +570,7 @@ SMODS.Joker {
 			if card.ability.extra.range > 0 then
 				local operator = math.random(1, 3) --1 is +, 2 is x, 3 is ^
 				local type = math.random(1,2) --1 is chips, 2 is mult
-				local result = lenient_bignum(math.random(1, card.ability.extra.range)) --Makes sure our result is consistant
+				local result = to_big(math.random(1, card.ability.extra.range)) --Makes sure our result is consistant
 				if operator == 1 then
 					if type == 1 then
 						return {
@@ -748,7 +750,7 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		card.ability.extra.power = 1
 		--for i = 1, #G.jokers.cards do
-			card.ability.extra.power = card.ability.extra.power + (#G.jokers.cards * card.ability.extra.gain)
+		card.ability.extra.power = card.ability.extra.power + (#G.jokers.cards * card.ability.extra.gain)
 		--end
 
 		if context.joker_main then
@@ -948,7 +950,7 @@ SMODS.Joker {
 					{ message = localize("k_upgrade_ex"), colour = G.C.GOLD }
 				)
 			end
-			return (card.ability.extra.gold * (G.GAME.dollars or 0))
+			return (card.ability.extra.gold * (to_number(G.GAME.dollars) or 0))
 		end
 	end,
 	cry_credits = {
@@ -957,6 +959,45 @@ SMODS.Joker {
 				"UTNerd24"
 			},
 			art = {
+				"MarioFan597"
+			},
+			code = {
+				"MarioFan597"
+			}
+	},
+}
+
+SMODS.Joker {
+	key = "bull",
+	config = { extra = { chips = 1, gain = 0.01} },
+	rarity = "cry_exotic",
+	atlas = "v_atlas_1",
+	blueprint_compat = true,
+		pos = { x = 3, y = 5 },
+	soul_pos = { x = 5, y = 5, extra = { x = 4, y = 5 } },
+	cost = 50,
+	order = 1,
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.chips, card and card.ability.extra.gain } }
+	end,
+	calculate = function(self, card, context)
+	card.ability.extra.chips = 1
+	card.ability.extra.chips = card.ability.extra.chips + (to_number(G.GAME.dollars) * card.ability.extra.gain)
+	if context.joker_main then
+			if card.ability.extra.chips > 0 then
+				return {
+					Echip_mod = math.min(card.ability.extra.chips, Global_Cap),
+					message = localize { type = "variable", key = "a_powchips", vars = { math.min(card.ability.extra.chips, Global_Cap) } }
+				}
+			end
+		end
+	end,
+	cry_credits = {
+			idea = {
+				"TheOfficialfem"
+			},
+			art = {
+				"unexian",
 				"MarioFan597"
 			},
 			code = {
@@ -1841,6 +1882,127 @@ SMODS.Joker{
 			}
 	},
 }
+--[[
+SMODS.Joker { --Commented out at the moment as it is also increasing hand size at the moment for some reason
+	key = "gemino", --Mostly taken from gemini
+	config = { extra = { scale = 2 } },
+	rarity = 3,
+	atlas = "c_atlas_mortal",
+	blueprint_compat = true,
+	pos = { x = 1, y = 0 },
+	cost = 10,
+	order = 515,
+	loc_vars = function(self, info_queue, card)
+		card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''; card.ability.blueprint_compat_check = nil
+		return {
+			vars = { card.ability.extra.scale },
+			main_end = (card.area and card.area == G.jokers) and {
+        			{n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            				{n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                			{n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            				}}
+        			}}
+    			} or nil
+		}
+	end,
+	update = function(self, card, front)
+		if G.STAGE == G.STAGES.RUN then
+			other_joker = G.jokers.cards[1]
+			if other_joker and other_joker ~= card and not (Card.no(other_joker, "immutable", true)) then
+                		card.ability.blueprint_compat = 'compatible'
+            		else
+               			card.ability.blueprint_compat = 'incompatible'
+            		end
+		end
+	end,
+	calculate = function(self, card2, context)
+		if context.end_of_round and not context.repetition and not context.individual then
+			local check = false
+			local card = G.jokers.cards[1]
+			if not Card.no(G.jokers.cards[1], "immutable", true) then
+				Cryptid.with_deck_effects(G.jokers.cards[1], function(card)
+					Cryptid.misprintize(card, { min = 2, max = 2 }, nil, true, "+")
+				end)
+				check = true
+			end
+			if check then
+				card_eval_status_text(
+					context.blueprint_card or card2,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex"), colour = G.C.GREEN }
+				)
+			end
+			return nil, true
+		end
+	end,
+	cry_credits = {
+			idea = {
+				"Googol1e308plex"
+			},
+			art = {
+				"Requiacity",
+				"MarioFan597"
+			},
+			code = {
+				"Math",
+				"MarioFan597"
+			}
+	},
+}
+]]
+
+---Functions-----
+--Ruby's Misprint + value fix
+--[[
+function Cryptid.calculate_misprint(initial, min, max, grow_type, pow_level)
+    local big_initial = (type(initial) ~= "table" and to_big(initial)) or initial
+    local big_min = (type(min) ~= "table" and to_big(min)) or min
+    local big_max = (type(max) ~= "table" and to_big(max)) or max
+
+    local grow = Cryptid.log_random(pseudoseed("cry_misprint" .. G.GAME.round_resets.ante), big_min, big_max)
+
+    local calc = big_initial
+    if not grow_type then
+        calc = calc * grow
+    elseif grow_type == "+" then
+        if to_big(math.abs(initial)) > to_big(0.00001) then calc = calc + grow end
+    elseif grow_type == "-" then
+        calc = calc - grow
+    elseif grow_type == "/" then
+        calc = calc / grow
+    elseif grow_type == "^" then
+        pow_level = pow_level or 1
+        if pow_level == 1 then
+            calc = calc ^ grow
+        else
+            local function hyper(level, base, height)
+                local big_base = (type(base) ~= "table" and to_big(base)) or base
+                local big_height = (type(height) ~= "table" and to_big(height)) or height
+
+                if height == 1 then
+                    return big_base
+                elseif level == 1 then
+                    return big_base ^ big_height
+                else
+                    local inner = hyper(level, base, height - 1)
+                    return hyper(level - 1, base, inner)
+                end
+            end
+
+            calc = hyper(pow_level, calc, grow)
+        end
+    end
+
+    if calc > to_big(-1e100) and calc < to_big(1e100) then
+        calc = to_number(calc)
+    end
+
+    return calc
+end
+]]
 
 ------Mod Menu Tabs (Taken directly and modified from more mario jokers)
 

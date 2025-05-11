@@ -20,8 +20,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '''=[SMODS Cryptid "items/exotic.lua"]'''
-pattern = '''return #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j")
-				< to_number(G.jokers.config.card_limit)'''
+pattern = '''return #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j") < G.jokers.config.card_limit'''
 position = "at"
 payload ='''if not asc_config["Insanity Mode!!!"] or false then
 				return #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j")
