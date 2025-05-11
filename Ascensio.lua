@@ -6,6 +6,13 @@
 local Global_Cap = 1000000
 ----------Defining Atlases------------------
 SMODS.Atlas {
+	key = "modicon",
+	path = "modicon.png",
+	px = 34,
+	py = 34
+}
+
+SMODS.Atlas {
 	key = "v_atlas_1",
 	path = "vanilla_atlas_1.png",
 	px = 71,
