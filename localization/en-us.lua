@@ -143,6 +143,14 @@ return {
 				}
 			},
 
+			j_asc_hanging_chad = {
+				name = "Charta Electionis",
+				text = {
+					"Retrigger the first",
+					"scored card {C:attention}#1#{} times"
+				}
+			},
+
 			j_asc_oops = {
 				name = "Fortunae Risus",
 				text = {
